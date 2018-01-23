@@ -1,24 +1,17 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 import {Exception} from './shared/domain/exception';
 import {UserTimelineParameter} from './twitter/domain/user-timeline-parameter';
 import {TwitterService} from './twitter/service/twitter.service';
 import {WinnerService} from './winner/service/winner.service';
 
 export const getLastTweetsOfGDGLille = functions.https.onRequest((request, response) => {
-    const tokenId = request.get('Authorization').split('Bearer ')[1];
+    const params = new UserTimelineParameter();
+    params.screen_name = 'GDG Lille';
 
-    admin.auth().verifyIdToken(tokenId)
-        .then(() => {
-            const params = new UserTimelineParameter();
-            params.screen_name = 'GDG Lille';
-
-            const twitterService = new TwitterService();
-            twitterService.getUserTimeline(params)
-                .then((tweets) => response.send(tweets))
-                .catch((err) => response.status(500).send(err));
-        })
-        .catch((err) => response.status(401).send(new Exception('Not authorized')));
+    const twitterService = new TwitterService();
+    twitterService.getUserTimeline(params)
+        .then((tweets) => response.send(tweets))
+        .catch((err) => response.status(500).send(err));
 });
 
 export const getRandomlyAWinner = functions.https.onRequest((request, response) => {
@@ -29,3 +22,5 @@ export const getRandomlyAWinner = functions.https.onRequest((request, response) 
         .then((winner) => response.send(winner))
         .catch((err) => response.status(500).send(err));
 });
+
+

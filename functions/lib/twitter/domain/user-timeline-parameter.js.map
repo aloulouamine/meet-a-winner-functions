@@ -1,1 +1,0 @@
-{"version":3,"file":"user-timeline-parameter.js","sourceRoot":"","sources":["../../../src/twitter/domain/user-timeline-parameter.ts"],"names":[],"mappings":";;AAAA;IAEI,YAAmB,WAAoB,EACpB,kBAA2B,IAAI,EAC/B,cAAuB,KAAK;QAF5B,gBAAW,GAAX,WAAW,CAAS;QACpB,oBAAe,GAAf,eAAe,CAAgB;QAC/B,gBAAW,GAAX,WAAW,CAAiB;IAC/C,CAAC;CAEJ;AAPD,sDAOC"}

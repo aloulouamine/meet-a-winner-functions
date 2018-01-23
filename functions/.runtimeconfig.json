@@ -1,0 +1,13 @@
+{
+  "twitter": {
+    "call_back_url": "https://meet-a-winner.firebaseapp.com",
+    "access": {
+      "token": "715300702298447872-2CNku1lieehPAhFvsxn14myL9QNK9AZ",
+      "token_secret": "aHqIDaAGbTGZzO1i7T9Fzde7TYDfdIYgutVm0HdszboRm"
+    },
+    "consumer": {
+      "key": "c9ACvQr4WDzIjr4xhvodInOPZ",
+      "secret": "3jthuk3dyXuzsjxqr0MXDjuw5lE5a82wsjpvItliAEJj7KESPg"
+    }
+  }
+}

@@ -13,8 +13,8 @@ export class TwitterService {
             consumerKey: functions.config().twitter.consumer.key,
             consumerSecret: functions.config().twitter.consumer.secret,
             accessToken: functions.config().twitter.access.token,
-            accessTokenSecret: functions.config().twitter.access['token-secret'],
-            callBackUrl: functions.config().twitter['call-back-url']
+            accessTokenSecret: functions.config().twitter.access.token_secret,
+            callBackUrl: functions.config().twitter.call_back_url
         });
     }
 
