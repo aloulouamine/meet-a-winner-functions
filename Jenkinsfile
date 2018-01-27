@@ -4,7 +4,6 @@ pipeline {
         stage('Install') {
             steps {
                 sh 'npm --prefix functions install'
-                sh 'npm install -g firebase-tools'
             }
         }
         stage('Make Quality') {
