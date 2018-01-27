@@ -57,12 +57,16 @@ export const getLastTweetsOfGDGLille = functions.https.onRequest((request, respo
  * @type {HttpsFunction}
  */
 export const getRandomlyAWinner = functions.https.onRequest((request, response) => {
-    const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
+    getToken(request)
+        .then(() => {
+            const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
 
-    const winnerService = new WinnerService();
-    winnerService.getRandomlyAWinner(tweetId)
-        .then((winner) => response.send(winner))
-        .catch((err) => response.status(500).send(err));
+            const winnerService = new WinnerService();
+            winnerService.getRandomlyAWinner(tweetId)
+                .then((winner) => getResponseWithCors(response).send(winner))
+                .catch((err) => getResponseWithCors(response).status(500).send(err));
+        })
+        .catch(err => getResponseWithCors(response).status(403).send(err));
 });
 
 
