@@ -1,9 +1,12 @@
 import * as functions from 'firebase-functions';
-import {Exception} from '../../shared/domain/exception';
-import {Tweet} from '../domain/tweet';
 import {Twitter} from 'twitter-node-client';
-import {UserTimelineParameter} from '../domain/user-timeline-parameter';
+import {Exception} from '../../shared/domain/exception';
+import {SearchParameter} from '../domain/search-parameter';
+import {Tweet} from '../domain/tweet';
 
+/**
+ * Manage interactions with Twitter platform.
+ */
 export class TwitterService {
 
     private twitterClient: any;
@@ -18,23 +21,33 @@ export class TwitterService {
         });
     }
 
-    public getUserTimeline(params: UserTimelineParameter): Promise<Array<Tweet>> {
+    /**
+     * Retrieve a list of {@link Tweet} via some {@link SearchParameter}.
+     * @param {SearchParameter} params
+     * @returns {Promise<Array<Tweet>>}
+     */
+    public getSearch(params: SearchParameter): Promise<Array<Tweet>> {
         return new Promise(
             (resolve: (value: Array<Tweet>) => void, reject: (reason: Exception) => void): void => {
 
-                this.twitterClient.getUserTimeline(params,
+                this.twitterClient.getSearch(params,
                     (err) => {
                         console.error(err);
-                        reject(new Exception(`Error retrieving tweet(s) of ${params.screen_name} from the Twitter platform.`));
+                        reject(new Exception(`Error retrieving tweet(s) from ${params.q} from the Twitter platform.`));
                     },
                     (data) => {
-                        const tweets = JSON.parse(data).map((tweet) => <Tweet> tweet);
+                        const tweets = JSON.parse(data).statuses.map((tweet) => <Tweet> tweet);
                         resolve(tweets);
                     });
 
             });
     }
 
+    /**
+     * Retrieve a list of re{@link Tweet} associated to a specific {@link Tweet}.
+     * @param {number} id of the root {@link Tweet}
+     * @returns {Promise<Array<Tweet>>}
+     */
     public getRetweetsOfATweet(id: number): Promise<Array<Tweet>> {
         return new Promise(
             (resolve: (value: Array<Tweet>) => void, reject: (reason: Exception) => void): void => {

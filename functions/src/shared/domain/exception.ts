@@ -1,5 +1,6 @@
 export class Exception {
 
-    constructor(public message: string) {}
+    constructor(public message: string) {
+    }
 
 }
