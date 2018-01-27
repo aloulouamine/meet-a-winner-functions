@@ -34,7 +34,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh 'npm --prefix functions run deploy --token $FIREBASE_TOKEN'
+                sh 'npm --prefix functions run deploy'
             }
         }
     }
