@@ -1,13 +1,13 @@
 # Cloud Functions / Meet a Winner // GDG Lille ([@GDGLille](https://twitter.com/GDGLille)) 
 
-[![Build Status](http://jenkins.bodul.fr/buildStatus/icon?job=GDG-Lille/meet-a-winner/master)](http://jenkins.bodul.fr/job/GDG-Lille/meet-a-winner/master)
+[![Build Status](http://jenkins.bodul.fr/buildStatus/icon?job=GDG-Lille/meet-a-winner-functions/master)](http://jenkins.bodul.fr/job/GDG-Lille/meet-a-winner-functions/master)
 
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=meet-a-winner)](https://sonarcloud.io/dashboard/index/meet-a-winner)
-[![Lines of Codes](https://sonarcloud.io/api/badges/measure?key=meet-a-winner&metric=ncloc&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner)
-[![Blocker Violations](https://sonarcloud.io/api/badges/measure?key=meet-a-winner&metric=blocker_violations&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner)
-[![Critical Violations](https://sonarcloud.io/api/badges/measure?key=meet-a-winner&metric=critical_violations&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner)
-[![Bugs](https://sonarcloud.io/api/badges/measure?key=meet-a-winner&metric=bugs&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner)
-[![Code Smells](https://sonarcloud.io/api/badges/measure?key=meet-a-winner&metric=code_smells&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=meet-a-winner-functions)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
+[![Lines of Codes](https://sonarcloud.io/api/badges/measure?key=meet-a-winner-functions&metric=ncloc&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
+[![Blocker Violations](https://sonarcloud.io/api/badges/measure?key=meet-a-winner-functions&metric=blocker_violations&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
+[![Critical Violations](https://sonarcloud.io/api/badges/measure?key=meet-a-winner-functions&metric=critical_violations&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
+[![Bugs](https://sonarcloud.io/api/badges/measure?key=meet-a-winner-functions&metric=bugs&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
+[![Code Smells](https://sonarcloud.io/api/badges/measure?key=meet-a-winner-functions&metric=code_smells&blinking=true)](https://sonarcloud.io/dashboard/index/meet-a-winner-functions)
 
 ## Made with ...
 * [NPM](https://www.npmjs.com/) 
