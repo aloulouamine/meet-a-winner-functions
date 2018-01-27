@@ -3,11 +3,11 @@
   "scripts": {
     "lint": "./node_modules/.bin/tslint -p tslint.json",
     "build": "./node_modules/.bin/tsc",
-    "serve": "npm run build && ./node_modules/.bin/firebase-tools/bin/firebase serve --only functions",
-    "shell": "npm run build && ./node_modules/.bin/firebase-tools/bin/firebase experimental:functions:shell",
+    "serve": "npm run build && ./node_modules/.bin/firebase serve --only functions",
+    "shell": "npm run build && ./node_modules/.bin/firebase experimental:functions:shell",
     "start": "npm run shell",
-    "deploy": "./node_modules/.bin/firebase-tools/bin/firebase deploy --only functions --token $FIREBASE_TOKEN",
-    "logs": "./node_modules/.bin/firebase-tools/bin/firebase functions:log"
+    "deploy": "./node_modules/.bin/firebase deploy --only functions --token $FIREBASE_TOKEN",
+    "logs": "./node_modules/.bin/firebase functions:log"
   },
   "main": "lib/index.js",
   "dependencies": {
