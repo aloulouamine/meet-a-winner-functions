@@ -38,7 +38,7 @@ export const getLastTweetsOfGDGLille = functions.https.onRequest((request, respo
     getToken(request)
         .then(() => {
             const params = new SearchParameter();
-            params.q = '@GDGLille';
+            params.q = '-filter:retweets from:GDGLille';
 
             const twitterService = new TwitterService();
             twitterService.getSearch(params)
