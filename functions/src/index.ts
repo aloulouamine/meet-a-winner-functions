@@ -31,7 +31,7 @@ function getToken(request): Promise<admin.auth.DecodedIdToken> {
  * @type {HttpsFunction}
  */
 export const getLastTweetsOfGDGLille = functions.https.onRequest((request, response) => {
-    cors({origin: true})(request, response, () => {
+    cors({origin: functions.config().cors.origin})(request, response, () => {
         getToken(request)
             .then(() => {
                 const params = new SearchParameter();
@@ -55,7 +55,7 @@ export const getLastTweetsOfGDGLille = functions.https.onRequest((request, respo
  * @type {HttpsFunction}
  */
 export const getRandomlyAWinner = functions.https.onRequest((request, response) => {
-    cors({origin: true})(request, response, () => {
+    cors({origin: functions.config().cors.origin})(request, response, () => {
         getToken(request)
             .then(() => {
                 const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
