@@ -16,7 +16,7 @@
 
 ## How to build in production ?
 
-Nothing to do, [Jenkins](https://jenkins.io/) (@see Jenkinsfile) does it :)
+Nothing to do, [Jenkins](https://jenkins.io/) does it :) (@see Jenkinsfile)
 
 ## How to test locally ?
 
