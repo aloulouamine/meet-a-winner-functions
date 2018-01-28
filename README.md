@@ -11,7 +11,24 @@
 
 ## Made with ...
 * [NPM](https://www.npmjs.com/) 
+* [Typescript](https://www.typescriptlang.org/)
 * [Firebase](https://firebase.google.com)
+
+## How to build in production ?
+
+Nothing to do, [Jenkins](https://jenkins.io/) does it :)
+
+## How to test locally ?
+
+First, you have to install [Firebase tools](https://github.com/firebase/firebase-tools) via `npm install -g firebase-tools`.
+
+Now, go in the worker directory, go further in the **functions** directory, play `npm run serve` and let the magy happened.
+
+## What is the box ?
+
+There are 2 functions 
+* *getLastTweetsOfGDGLille* which retrieve the last 15 tweets of the [@GDGLille](https://twitter.com/GDGLille) Twitter account ;
+* *getRandomlyAWinner* which find a winner randomly over multiple platform (e.g. Twitter).
 
 ## Contact via [Issues](https://github.com/GDG-Lille/meet-a-winner/issues) on the [meet-a-winner](https://github.com/GDG-Lille/meet-a-winner) project
 Helpful for **question**, **bug** and **contribution request**.
