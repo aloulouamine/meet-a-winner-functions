@@ -1,3 +1,4 @@
+import * as cors from 'cors';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {Exception} from './shared/domain/exception';
@@ -22,11 +23,6 @@ function getToken(request): Promise<admin.auth.DecodedIdToken> {
         });
 }
 
-function getResponseWithCors(response) {
-    response.set('Access-Control-Allow-Origin', functions.config().cors.origin);
-    return response;
-}
-
 /**
  * Retrieve the last 15 tweets of GDG Lille.
  * @return Array<Tweet>>
@@ -35,17 +31,19 @@ function getResponseWithCors(response) {
  * @type {HttpsFunction}
  */
 export const getLastTweetsOfGDGLille = functions.https.onRequest((request, response) => {
-    getToken(request)
-        .then(() => {
-            const params = new SearchParameter();
-            params.q = '-filter:retweets from:GDGLille';
+    cors({origin: true})(request, response, () => {
+        getToken(request)
+            .then(() => {
+                const params = new SearchParameter();
+                params.q = '-filter:retweets from:GDGLille';
 
-            const twitterService = new TwitterService();
-            twitterService.getSearch(params)
-                .then((tweets) => getResponseWithCors(response).send(tweets))
-                .catch((err) => getResponseWithCors(response).status(500).send(err));
-        })
-        .catch(err => getResponseWithCors(response).status(403).send(err));
+                const twitterService = new TwitterService();
+                twitterService.getSearch(params)
+                    .then((tweets) => response.send(tweets))
+                    .catch((err) => response.status(500).send(err));
+            })
+            .catch(err => response.status(403).send(err));
+    });
 });
 
 /**
@@ -57,16 +55,18 @@ export const getLastTweetsOfGDGLille = functions.https.onRequest((request, respo
  * @type {HttpsFunction}
  */
 export const getRandomlyAWinner = functions.https.onRequest((request, response) => {
-    getToken(request)
-        .then(() => {
-            const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
+    cors({origin: true})(request, response, () => {
+        getToken(request)
+            .then(() => {
+                const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
 
-            const winnerService = new WinnerService();
-            winnerService.getRandomlyAWinner(tweetId)
-                .then((winner) => getResponseWithCors(response).send(winner))
-                .catch((err) => getResponseWithCors(response).status(500).send(err));
-        })
-        .catch(err => getResponseWithCors(response).status(403).send(err));
+                const winnerService = new WinnerService();
+                winnerService.getRandomlyAWinner(tweetId)
+                    .then((winner) => response.send(winner))
+                    .catch((err) => response.status(500).send(err));
+            })
+            .catch(err => response.status(403).send(err));
+    });
 });
 
 
