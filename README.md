@@ -22,9 +22,12 @@ Nothing to do, [Jenkins](https://jenkins.io/) does it :) (@see Jenkinsfile)
 
 First, you have to install [Firebase tools](https://github.com/firebase/firebase-tools) via `npm install -g firebase-tools`.
 
-Now, go in the worker directory, go further in the **functions** directory, play `npm run serve` and let the magy happened.
+Now, go in the worker directory, go further in the **functions** directory and :
+* Play `firebase functions:config:get > .runtimeconfig.json` ;
+* Play `npm run serve` ;
+* Let the magy happened.
 
-## What is the box ?
+## What's the box ?
 
 There are 2 functions 
 * *getLastTweetsOfGDGLille* which retrieve the last 15 tweets of the [@GDGLille](https://twitter.com/GDGLille) Twitter account ;
