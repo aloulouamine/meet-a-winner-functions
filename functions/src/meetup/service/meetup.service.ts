@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import * as meetup from 'meetup-api';
+import * as MeetupApi from 'meetup-api';
 import {Exception} from '../../shared/domain/exception';
 import {Meetup} from '../domain/meetup';
 
@@ -11,28 +11,27 @@ export class MeetupService {
     private meetupClient: any;
 
     constructor() {
-        this.meetupClient = new meetup({
+        this.meetupClient = new MeetupApi({
             key: functions.config().meetup.api_key
         });
     }
 
     /**
-     * Retrieve a list of {@link Meetup} via the id of the group.
-     * @param {string} groupId
+     * Retrieve a list of {@link Meetup} via the url name of the group.
+     * @param {string} groupUrlName
      * @returns {Promise<Array<Meetup>>}
      */
-    public getEvents(groupId: string): Promise<Array<Meetup>> {
+    public getEvents(groupUrlName: string): Promise<Array<Meetup>> {
         return new Promise(
             (resolve: (value: Array<Meetup>) => void, reject: (reason: Exception) => void): void => {
 
-                this.meetupClient.getEvents({group_id: groupId},
+                this.meetupClient.getEvents({group_urlname: groupUrlName},
                     (err, data) => {
-                        if (err !== undefined) {
-                            console.error(err);
-                            reject(new Exception(`Error retrieving event(s) from ${groupId} from the Meetup platform.`));
+                        if (err) {
+                            reject(new Exception(`Error retrieving event(s) from group ${groupUrlName} from the Meetup platform.`));
                         }
 
-                        const meetups = JSON.parse(data).map((meetup) => <Meetup> meetup);
+                        const meetups = data.results.map(meetup => <Meetup>meetup);
                         resolve(meetups);
                     });
 
