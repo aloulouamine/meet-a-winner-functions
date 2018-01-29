@@ -33,10 +33,10 @@ export class TwitterService {
                 this.twitterClient.getSearch(params,
                     (err) => {
                         console.error(err);
-                        reject(new Exception(`Error retrieving tweet(s) from ${params.q} from the Twitter platform.`));
+                        reject(new Exception(`Error retrieving tweet(s) from query ${params.q} from the Twitter platform.`));
                     },
                     (data) => {
-                        const tweets = JSON.parse(data).statuses.map((tweet) => <Tweet> tweet);
+                        const tweets = JSON.parse(data).statuses.map(tweet => <Tweet> tweet);
                         resolve(tweets);
                     });
 
@@ -55,10 +55,10 @@ export class TwitterService {
                 this.twitterClient.getCustomApiCall(`/statuses/retweets/${id}.json`, {},
                     (err) => {
                         console.error(err);
-                        reject(new Exception(`Error retrieving retweet(s) of ${id} from the Twitter platform.`));
+                        reject(new Exception(`Error retrieving retweet(s) of tweet ${id} from the Twitter platform.`));
                     },
                     (data) => {
-                        const tweets = JSON.parse(data).map((tweet) => <Tweet> tweet);
+                        const tweets = JSON.parse(data).map(tweet => <Tweet> tweet);
                         resolve(tweets);
                     });
 

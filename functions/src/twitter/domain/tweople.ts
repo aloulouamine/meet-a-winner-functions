@@ -1,8 +1,9 @@
 export class Tweople {
 
-    constructor(public id?: number,
+    constructor(public id_str?: string,
                 public name?: string,
-                public profile_image_url_https?: string) {
+                public profile_image_url_https?: string,
+                public profile_background_image_url_https?: string) {
     }
 
 }
