@@ -15,20 +15,20 @@ export class WinnerService {
     private shakerService = new ShakerService();
 
     /**
-     * Get a {@link Winner} randomly over mulitple platform.
-     * @param {number} ID of a {@link Tweet}
+     * Get a {@link Winner} randomly over multiple platform.
+     * @param {string} Id of a {@link Tweet}
      * @returns {Promise<Winner>}
      */
-    public getRandomlyAWinner(tweetId: number): Promise<Winner> {
+    public getRandomlyAWinner(tweetId: string): Promise<Winner> {
         const twitterPromise = this.twitterService.getRetweetsOfATweet(tweetId);
 
         return new Promise(
             (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
                 Promise.all([twitterPromise])
-                    .then((values) => {
+                    .then(values => {
                         resolve(this.getRandomlyAWinnerFromTwitter(values[0]));
                     })
-                    .catch((err) => reject(err));
+                    .catch(err => reject(err));
             }
         );
     }

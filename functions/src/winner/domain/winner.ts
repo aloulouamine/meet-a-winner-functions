@@ -1,8 +1,9 @@
 export class Winner {
 
-    constructor(public id?: number,
+    constructor(public id?: string,
                 public name?: string,
-                public image?: string) {
+                public profile_image?: string,
+                public background_image?: string) {
     }
 
 }

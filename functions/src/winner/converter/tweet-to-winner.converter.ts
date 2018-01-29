@@ -14,9 +14,10 @@ export class TweetToWinnerConverter implements Converter<Tweet, Winner> {
      */
     public convert(tweet: Tweet): Winner {
         const winner = new Winner();
-        winner.id = tweet.user.id;
+        winner.id = tweet.user.id_str;
         winner.name = tweet.user.name;
-        winner.image = tweet.user.profile_image_url_https;
+        winner.profile_image = tweet.user.profile_image_url_https;
+        winner.background_image = tweet.user.profile_background_image_url_https;
 
         return winner;
     }
