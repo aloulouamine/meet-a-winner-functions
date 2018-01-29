@@ -25,7 +25,7 @@ First, you have to install [Firebase tools](https://github.com/firebase/firebase
 Now, go in the worker directory, go further in the **functions** directory and :
 * Play `firebase functions:config:get > .runtimeconfig.json` ;
 * Play `npm run serve` ;
-* Let the magy happened.
+* Let the magic happen
 
 ## What's the box ?
 
