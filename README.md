@@ -27,11 +27,12 @@ Now, go in the worker directory, go further in the **functions** directory and :
 * Play `npm run serve` ;
 * Let the magic happen
 
-## What's the box ?
+## What's in the box ?
 
-There are 2 functions 
-* *getLastTweetsOfGDGLille* which retrieve the last 15 tweets of the [@GDGLille](https://twitter.com/GDGLille) Twitter account ;
-* *getRandomlyAWinner* which find a winner randomly over multiple platform (e.g. Twitter).
+There are 3 functions 
+* *getLastTweetsOfGDGLille* which retrieve the last 10 tweets of the [@GDGLille](https://twitter.com/GDGLille) Twitter account ;
+* *getLastMeetupsOfGDGLille* which retrieve the last 20 upcoming meetups of the [GDG-Lille](https://www.meetup.com/fr-FR/GDG-Lille/) Meetup account ;
+* *getRandomlyAWinner* which find a winner randomly over multiple platforms (e.g. Twitter, Meetup).
 
 ## Contact via [Issues](https://github.com/GDG-Lille/meet-a-winner/issues) on the [meet-a-winner](https://github.com/GDG-Lille/meet-a-winner) project
 Helpful for **question**, **bug** and **contribution request**.
