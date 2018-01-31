@@ -1,7 +1,9 @@
+import {MeetupService} from '../../meetup/service/meetup.service';
 import {Exception} from '../../shared/domain/exception';
 import {ShakerService} from '../../shared/service/shaker.service';
 import {Tweet} from '../../twitter/domain/tweet';
 import {TwitterService} from '../../twitter/service/twitter.service';
+import {RsvpToWinnerConverter} from '../converter/rsvp-to-winner.converter';
 import {TweetToWinnerConverter} from '../converter/tweet-to-winner.converter';
 import {Winner} from '../domain/winner';
 
@@ -11,23 +13,25 @@ import {Winner} from '../domain/winner';
 export class WinnerService {
 
     private twitterService = new TwitterService();
+    private meetupService = new MeetupService();
     private tweetToWinnerConverter = new TweetToWinnerConverter();
+    private rsvpToWinnerConverter = new RsvpToWinnerConverter();
     private shakerService = new ShakerService();
 
     /**
      * Get a {@link Winner} randomly over multiple platform.
      * @param {string} Id of a {@link Tweet}
+     * @param {string} Id of a {@link Meetup}
      * @returns {Promise<Winner>}
      */
-    public getRandomlyAWinner(tweetId: string): Promise<Winner> {
-        const twitterPromise = this.twitterService.getRetweetsOfATweet(tweetId);
+    public getRandomlyAWinner(tweetId: string, meetupId: string): Promise<Winner> {
+        const twitterPromise = this.getRandomlyAWinnerFromTwitter(tweetId);
+        const meetupPromise = this.getRandomlyAWinnerFromMeetup(meetupId);
 
         return new Promise(
             (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
-                Promise.all([twitterPromise])
-                    .then(values => {
-                        resolve(this.getRandomlyAWinnerFromTwitter(values[0]));
-                    })
+                Promise.all([twitterPromise, meetupPromise])
+                    .then(winners => resolve(this.shakerService.getRandom(winners)))
                     .catch(err => reject(err));
             }
         );
@@ -35,12 +39,38 @@ export class WinnerService {
 
     /**
      * Get a {@link Winner} randomly over Twitter platform.
-     * @param {Array<Tweet>} tweets
-     * @returns {Winner}
+     * @param {string} Id of a {@link Tweet}
+     * @returns {Promise<Winner>}
      */
-    public getRandomlyAWinnerFromTwitter(tweets: Array<Tweet>): Winner {
-        const tweet = this.shakerService.getRandom(tweets);
-        return this.tweetToWinnerConverter.convert(tweet);
+    public getRandomlyAWinnerFromTwitter(tweetId: string): Promise<Winner> {
+        return new Promise(
+            (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
+                this.twitterService.getRetweetsOfATweet(tweetId)
+                    .then(tweets => {
+                        const tweet = this.shakerService.getRandom(tweets);
+                        resolve(this.tweetToWinnerConverter.convert(tweet));
+                    })
+                    .catch(err => reject(err));
+            }
+        );
+    }
+
+    /**
+     * Get a {@link Winner} randomly over Meetup platform.
+     * @param {string} Id of a {@link Meetup}
+     * @returns {Promise<Winner>}
+     */
+    public getRandomlyAWinnerFromMeetup(meetupId: string): Promise<Winner> {
+        return new Promise(
+            (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
+                this.meetupService.getRsvpsOfAMeetup(meetupId)
+                    .then(rsvps => {
+                        const rsvp = this.shakerService.getRandom(rsvps);
+                        resolve(this.rsvpToWinnerConverter.convert(rsvp));
+                    })
+                    .catch(err => reject(err));
+            }
+        );
     }
 
 }
