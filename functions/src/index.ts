@@ -79,10 +79,25 @@ export const getRandomlyAWinner = functions.https.onRequest((request, response) 
     cors({origin: functions.config().cors.origin})(request, response, () => {
         getToken(request)
             .then(() => {
-                const tweetId = request.query.tweetId || response.status(400).send(new Exception('Missing id of tweet in the request.'));
+                const tweetId = request.query.tweetId;
+                const meetupId = request.query.meetupId;
+
+                if (tweetId === undefined && meetupId === undefined) {
+                    response.status(400).send(new Exception('Required either id of a tweet or id of a meetup in the request.'));
+                }
 
                 const winnerService = new WinnerService();
-                winnerService.getRandomlyAWinner(tweetId)
+                let promise = undefined;
+
+                if (tweetId !== undefined && meetupId === undefined) {
+                    promise = winnerService.getRandomlyAWinnerFromTwitter(tweetId);
+                } else if (tweetId === undefined && meetupId !== undefined) {
+                    promise = winnerService.getRandomlyAWinnerFromMeetup(meetupId);
+                } else {
+                    promise = winnerService.getRandomlyAWinner(tweetId, meetupId);
+                }
+
+                promise
                     .then((winner) => response.send(winner))
                     .catch((err) => response.status(500).send(err));
             })
