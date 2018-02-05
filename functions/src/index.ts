@@ -59,7 +59,7 @@ export const getLastMeetupsOfGDGLille = functions.https.onRequest((request, resp
         getToken(request)
             .then(() => {
                 const meetupService = new MeetupService();
-                meetupService.getEvents('GDG-Lille')
+                meetupService.getEvents('GDG-Lille', ['upcoming', 'past'], true)
                     .then((meetups) => response.send(meetups))
                     .catch((err) => response.status(500).send(err))
             })
