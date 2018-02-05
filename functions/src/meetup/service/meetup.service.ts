@@ -20,13 +20,15 @@ export class MeetupService {
     /**
      * Retrieve a list of {@link Meetup} via the url name of the group.
      * @param {string} groupUrlName
+     * @param {Array<String>} status
+     * @param {boolean} descending
      * @returns {Promise<Array<Meetup>>}
      */
-    public getEvents(groupUrlName: string): Promise<Array<Meetup>> {
+    public getEvents(groupUrlName: string, status: Array<String> = ['upcoming'], descending: boolean = false): Promise<Array<Meetup>> {
         return new Promise(
             (resolve: (value: Array<Meetup>) => void, reject: (reason: Exception) => void): void => {
 
-                this.meetupClient.getEvents({group_urlname: groupUrlName},
+                this.meetupClient.getEvents({group_urlname: groupUrlName, status: status.join(','), desc: descending},
                     (err, data) => {
                         if (err) {
                             reject(new Exception(`Error retrieving event(s) from group ${groupUrlName} from the Meetup platform.`));
