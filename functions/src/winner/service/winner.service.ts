@@ -47,6 +47,10 @@ export class WinnerService {
             (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
                 this.twitterService.getRetweetsOfATweet(tweetId)
                     .then(tweets => {
+                        if (tweets.length === 0) {
+                            reject(new Exception(`No retweet found for tweet ${tweetId}`));
+                        }
+
                         const tweet = this.shakerService.getRandom(tweets);
                         resolve(this.tweetToWinnerConverter.convert(tweet));
                     })
@@ -65,6 +69,10 @@ export class WinnerService {
             (resolve: (value: Winner) => void, reject: (reason: Exception) => void): void => {
                 this.meetupService.getRsvpsOfAMeetup(meetupId)
                     .then(rsvps => {
+                        if (rsvps.length === 0) {
+                            reject(new Exception(`No yes RSVPs found for meetup ${meetupId}`));
+                        }
+
                         const rsvp = this.shakerService.getRandom(rsvps);
                         resolve(this.rsvpToWinnerConverter.convert(rsvp));
                     })
