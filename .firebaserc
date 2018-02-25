@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "meet-a-winner"
+    "default": "meet-a-winner",
+    "dev": "meet-a-winner-dev"
   }
 }
